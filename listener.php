@@ -1,4 +1,5 @@
 <?php
+    include "config.php";
     define('BOT_TOKEN', '761669654:AAEflIkOxaOTeRlaUZdSnmXqzYdEI-NTSfA');
     define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
     	
@@ -6,9 +7,14 @@
     $content = file_get_contents("php://input");
     $update = json_decode($content, true);
     $chatID = $update["message"]["chat"]["id"];
-    		
+    $messageText = $update["message"]["text"];
+
+    $sql = "INSERT INTO inbox (id, message, chat_id, date)
+            VALUES (NULL, '".$messageText."', '".$chatID."', CURDATE())";
+    $conn->query($sql);
+
     // compose reply
-    $reply =  sendMessage();
+    $reply =  $messageText;
     		
     // send reply
     $sendto =API_URL."sendmessage?chat_id=".$chatID."&text=".$reply;

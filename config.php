@@ -1,8 +1,8 @@
 <?php
-    $host = "localhost";
-    $user = "root";
-    $pass = "newpass";
-    $db = "itccbot_db";
+    $host = "sql12.freemysqlhosting.net";
+    $user = "sql12263773";
+    $pass = "bCMI9sxD86";
+    $db = "sql12263773";
 
     $conn = new mysqli($host, $user, $pass, $db);
     
