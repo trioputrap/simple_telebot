@@ -18,8 +18,13 @@
     		
     // send reply
     $sendto =API_URL."sendmessage?chat_id=".$chatID."&text=".$reply;
-    file_get_contents($sendto);
     
+    $sql = "INSERT INTO outbox (id, message, chat_id, flag_sent, date)
+            VALUES (NULL, '".$messageText."', '".$chatID."', 1, CURDATE())";
+    $conn->query($sql);
+    
+    file_get_contents($sendto);
+
     function sendMessage(){
         $message = "I am a baby bot.";
         return $message;
