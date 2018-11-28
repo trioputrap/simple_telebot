@@ -1,6 +1,6 @@
 <?php
     include "config.php";
-    define('BOT_TOKEN', '505934618:AAE_DeMhq1ztYF6R-NAhvsYcpn4AvxfTZ2g');
+    define('BOT_TOKEN', '761669654:AAEflIkOxaOTeRlaUZdSnmXqzYdEI-NTSfA');
     define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
 
     // send reply
