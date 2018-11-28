@@ -13,6 +13,10 @@
             VALUES (NULL, '".$messageText."', '".$chatID."', CURDATE())";
     $conn->query($sql);
 
+    $sql = "INSERT INTO outbox (id, message, chat_id, flag_sent, date)
+            VALUES (NULL, '".$messageText."', '".$chatID."', 0, CURDATE())";
+    $conn->query($sql);
+    /*
     // compose reply
     $reply =  $messageText;
     		
@@ -24,11 +28,6 @@
     $conn->query($sql);
     
     file_get_contents($sendto);
-
-    function sendMessage(){
-        $message = "I am a baby bot.";
-        return $message;
-    }
     
     checkJSON($chatID,$update);
 
@@ -40,4 +39,6 @@
 		fwrite($fh, $chatID ."\n\n");
 		fwrite($fh, $updateArray."\n\n");
 		fclose($fh);
-	}
+    }
+    
+    */
