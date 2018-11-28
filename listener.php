@@ -10,12 +10,9 @@
     $messageText = $update["message"]["text"];
 
     $sql = "INSERT INTO inbox (id, message, chat_id, date)
-            VALUES (NULL, '".$messageText."', '".$chatID."', CURDATE())";
+            VALUES (NULL, '".$messageText."', '".$chatID."', NOW())";
     $conn->query($sql);
 
-    $sql = "INSERT INTO outbox (id, message, chat_id, flag_sent, date)
-            VALUES (NULL, '".$messageText."', '".$chatID."', 0, CURDATE())";
-    $conn->query($sql);
     /*
     // compose reply
     $reply =  $messageText;
