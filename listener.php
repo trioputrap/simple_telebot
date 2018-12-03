@@ -2,16 +2,27 @@
     include "config.php";
     define('BOT_TOKEN', '761669654:AAEflIkOxaOTeRlaUZdSnmXqzYdEI-NTSfA');
     define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
-    	
+
     // read incoming info and grab the chatID
     $content = file_get_contents("php://input");
     $update = json_decode($content, true);
     $chatID = $update["message"]["chat"]["id"];
     $messageText = $update["message"]["text"];
 
+    if ($conn->connect_error){
+        $bussy_msg = "Please wait, will reply in a few moments";
+        $sendto =API_URL."sendmessage?chat_id=".$chatID."&text=".$bussy_msg;
+        
+        while ($conn->connect_error) {
+                echo("Connection failed: " . $conn->connect_error);
+                echo("Retrying in 10 secs .. .");
+                sleep(10);
+        }
+    }
+
     $sql = "INSERT INTO inbox (id, message, chat_id, date)
-            VALUES (NULL, '".$messageText."', '".$chatID."', NOW())";
-    $conn->query($sql);
+                VALUES (NULL, '".$messageText."', '".$chatID."', '".date('Y-m-d h:i:s')."')";
+        $conn->query($sql);
 
     /*
     // compose reply

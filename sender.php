@@ -5,20 +5,19 @@
 
     // send reply
     while(true){
-        $sql = "SELECT * FROM outbox WHERE flag = 0";
-
-        if($qry = $conn->query($sql)) {
+        $sql = "SELECT * FROM outbox WHERE flag = 0 LIMIT 10";
+        $qry = $conn->query($sql);
+        if($qry->num_rows) {
             while($data = $qry->fetch_object()){
                 $sendto =API_URL."sendmessage?chat_id=".$data->chat_id."&text=".$data->message;
                 file_get_contents($sendto);
-                echo "message was sent to ".$data->chat_id."\n";
+                echo "Message was sent to ".$data->chat_id."\n";
                 
-                $sql2 = "UPDATE outbox SET flag=1 WHERE id = ".$data->id;
-                echo $sql2;
+                $sql2 = "UPDATE outbox SET flag=1, date_sent='".date('Y-m-d H:i:s')."' WHERE id = ".$data->id;
                 $qry2 = $conn->query($sql2);
             }
         } else {
-            echo "no new message to sent..";
+            echo "No new message to sent..\n";
         }
-        sleep(5);
+        sleep(1);
     }
