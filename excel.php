@@ -15,6 +15,7 @@
     $base_url = "http://itccbot.herokuapp.com/";
 
     
-    $sendto =API_URL."sendmessage?chat_id=400784474&document=".$base_url."/excel.php&caption=excel";
+    $sendto =API_URL."sendmessage?chat_id=400784474&document=".$base_url."/excel.xlsx&caption=excel";
+    echo $sendto;
     file_get_contents($sendto);
-    echo "Message was sent";
+    echo "\nMessage was sent";
