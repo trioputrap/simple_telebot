@@ -21,4 +21,4 @@
     
     file_get_contents($sendto);
     echo $sendto;
-    echo "\nMessage was sent";
+    echo "\nMessage was sentss";
