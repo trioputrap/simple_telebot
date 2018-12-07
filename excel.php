@@ -4,6 +4,8 @@
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
     use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+    define('BOT_TOKEN', '761669654:AAEflIkOxaOTeRlaUZdSnmXqzYdEI-NTSfA');
+    define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
     $sheet->setCellValue('A1', 'Hello World !');
