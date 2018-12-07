@@ -17,4 +17,4 @@
     
     $sendto =API_URL."sendmessage?chat_id=400784474&document=".$base_url."/excel.php&caption=excel";
     file_get_contents($sendto);
-    echo "Message was sent to ".$data->chat_id."\n";
+    echo "Message was sent";
