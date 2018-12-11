@@ -36,13 +36,13 @@
                         while($data3 = $qry3->fetch_object()){
                             $format = $data2->format;
                             $format = str_replace("#keyword", "#".$data3->keyword, $format);
-                            $reply.=$data3->type."\n";
-                            $reply .= "Masukkan perintah berikut:\n";
-                            $reply.=$format."\n\n";
+                            $reply.="<b>".$data3->type."</b>".PHP_EOL;
+                            $reply .= "<i>Masukkan perintah berikut:</i>".PHP_EOL;
+                            $reply.="<pre>".$format."</pre>".PHP_EOL.PHP_EOL;
                         }
                     } else {
-                        $reply = "Masukkan perintah berikut:\n";
-                        $reply .= $data2->format;
+                        $reply = "<i>Masukkan perintah berikut:</i>".PHP_EOL;
+                        $reply .= "<pre>".$data2->format."</pre>";
                     }
                 } else { // operation id's not found
                     $messages = explode(" #", $data['message']);
@@ -80,9 +80,9 @@
                             if($num_rows > 0) {
                                 while($data2 = $qry2->fetch_assoc()){            
                                     foreach($data2 as $key => $val){
-                                        $reply.=$key."\t: ".$val."\n";
+                                        $reply.=$key."\t: ".$val.PHP_EOL;
                                     }
-                                    if($num_rows>1) $reply.="\n";
+                                    if($num_rows>1) $reply.=PHP_EOL;
                                 }
                             } else {
                                 $reply = "Data tidak ditemukan";
@@ -92,11 +92,11 @@
                         $sql2 = "SELECT name  FROM operation";
                         $qry2 = $conn->query($sql2);
                         
-                        $reply = "List Operasi\n\n";
+                        $reply = "<b>List Operasi</b>".PHP_EOL.PHP_EOL;
                         $i = 0;
                         while($data2 = $qry2->fetch_object()) {
                             $i++;
-                            $reply .= $i.".\t".$data2->name."\n";
+                            $reply .= $i.".\t".$data2->name.PHP_EOL;
                         }
                     }
                 }

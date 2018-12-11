@@ -60,7 +60,7 @@
                     echo "File was sent to ".$data['chat_id']."\n";
                     $helper->removeFile($ext);
                 } else {
-                    $sendto =API_URL."sendmessage?chat_id=".$data['chat_id']."&text=".$data['message'];
+                    $sendto =API_URL."sendmessage?chat_id=".$data['chat_id']."&text=".$data['message']."&parse_mode=html";
                     file_get_contents($sendto);
                     echo "Message was sent to ".$data['chat_id']."\n";
                 }
