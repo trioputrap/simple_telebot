@@ -1,15 +1,24 @@
 <?php
     include "config.php";
     include "ExcelFileHelper.php";
-    define('BOT_TOKEN', '761669654:AAEflIkOxaOTeRlaUZdSnmXqzYdEI-NTSfA');
-    define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
-
+    
     // send reply
     while(true){
+        $time_start = microtime(true); 
+
         $sql = "SELECT * FROM outbox WHERE flag = 0 LIMIT 10";
         $qry = $conn->query($sql);
+        $rows = array();
+        $rows_id = array();
+        while($data = $qry->fetch_assoc()){
+            $rows[] = $data;
+            $rows_id[] = $data['id'];
+        }
+        $sql2 = "UPDATE outbox SET flag=1 WHERE id in (".join(",",$rows_id).")";
+        $qry2 = $conn->query($sql2);
+
         if($qry->num_rows) {
-            while($data = $qry->fetch_assoc()){
+            foreach($rows as $data){
                 if($data['flag_file']){
                     $sql2 = "SELECT `file_type_id`, `sql`, `filename` FROM operation_file_type oft 
                     INNER JOIN operation o
@@ -53,12 +62,16 @@
                     file_get_contents($sendto);
                     echo "Message was sent to ".$data['chat_id']."\n";
                 }
-                
-                $sql2 = "UPDATE outbox SET flag=1, date_sent='".date('Y-m-d H:i:s')."' WHERE id = ".$data['id'];
+                $sql2 = "UPDATE outbox SET date_sent='".date('Y-m-d H:i:s')."' WHERE id = ".$data['id'];
                 $qry2 = $conn->query($sql2);
             }
         } else {
             echo "No new message to sent..\n";
         }
-        sleep(1);
+        
+        $time_end = microtime(true);
+        $execution_time = ($time_end - $time_start);
+
+        //execution time of the script
+        echo '10 Qry Execution Time: '.$execution_time." sec\n";
     }

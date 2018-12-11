@@ -34,8 +34,8 @@
             return $this->filename;
         }
         
-        public function removeFile(){
-            unlink($this->getDirFile());
+        public function removeFile($ext=""){
+            unlink($this->getDirFile($ext));
         }
 
         public function send($url, $fields){
@@ -54,7 +54,6 @@
             
             //execute post
             $result = curl_exec($ch);
-            //$this->removeFile();
             return $result;
         }
     }

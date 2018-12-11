@@ -1,7 +1,5 @@
 <?php
     include "config.php";
-    define('BOT_TOKEN', '761669654:AAEflIkOxaOTeRlaUZdSnmXqzYdEI-NTSfA');
-    define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
 
     // read incoming info and grab the chatID
     $content = file_get_contents("php://input");
