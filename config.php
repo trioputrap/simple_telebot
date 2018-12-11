@@ -1,6 +1,6 @@
 <?php
     date_default_timezone_set('Asia/Jakarta');
-    define('BOT_TOKEN', '761669654:AAEflIkOxaOTeRlaUZdSnmXqzYdEI-NTSfA');
+    define('BOT_TOKEN', '716246309:AAHFvIEolHqU9lnJ18T7NcvIsTr4FVYzj7g');
     define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
 
     $host = "itcc-udayana.com";

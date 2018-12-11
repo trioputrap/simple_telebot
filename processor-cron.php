@@ -40,7 +40,8 @@
                             $reply.=$format."\n\n";
                         }
                     } else {
-                        $reply = $data2->format;
+                        $reply = "Masukkan perintah berikut:\n";
+                        $reply .= $data2->format;
                     }
                 } else { // operation id's not found
                     $messages = explode(" #", $data['message']);
@@ -90,6 +91,7 @@
                         $sql2 = "SELECT name  FROM operation";
                         $qry2 = $conn->query($sql2);
                         
+                        $reply = "List Operasi\n\n";
                         $i = 0;
                         while($data2 = $qry2->fetch_object()) {
                             $i++;

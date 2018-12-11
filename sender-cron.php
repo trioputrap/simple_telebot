@@ -52,7 +52,6 @@
                     $document = new \CURLFile(realpath($url));
                     $document->setPostFilename($data2->filename.".".$ext);
                     $fields = [
-                        'caption' => 'File',
                         'chat_id' => $data['chat_id'],
                         'document' => $document
                     ];
