@@ -37,6 +37,7 @@
                             $format = $data2->format;
                             $format = str_replace("#keyword", "#".$data3->keyword, $format);
                             $reply.=$data3->type."\n";
+                            $reply .= "Masukkan perintah berikut:\n";
                             $reply.=$format."\n\n";
                         }
                     } else {
