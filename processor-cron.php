@@ -49,7 +49,7 @@
                 
                     $reply = "";
 
-                    $sql2 = "SELECT `id`,`sql`,`flag_file`, `filename` FROM operation WHERE keyword='".$messages[0]."'";
+                    $sql2 = "SELECT `id`,`sql`, `sql_type`, `flag_file`, `filename` FROM operation WHERE keyword='".$messages[0]."'";
                     
                     $qry2 = $conn->query($sql2);
 
@@ -76,16 +76,40 @@
                             }
 
                             $qry2 = $conn->query($sql2);
-                            $num_rows = $qry2->num_rows;
-                            if($num_rows > 0) {
-                                while($data2 = $qry2->fetch_assoc()){            
-                                    foreach($data2 as $key => $val){
-                                        $reply.=$key."\t: ".$val.PHP_EOL;
+                            switch($data2->sql_type){
+                                case "input":
+                                    if($qry2){
+                                        $reply = "Insert berhasil dilakukan";
+                                    } else {
+                                        $reply = "Insert gagal dilakukan";
                                     }
-                                    if($num_rows>1) $reply.=PHP_EOL;
-                                }
-                            } else {
-                                $reply = "Data tidak ditemukan";
+                                    break;
+                                case "update":
+                                    if($qry2){
+                                        $reply = "Update berhasil dilakukan";
+                                    } else {
+                                        $reply = "Update gagal dilakukan";
+                                    }
+                                    break;
+                                case "delete":
+                                    if($qry2){
+                                        $reply = "Delete berhasil dilakukan";
+                                    } else {
+                                        $reply = "Delete gagal dilakukan";
+                                    }
+                                    break;
+                                default:
+                                    $num_rows = $qry2->num_rows;
+                                    if($num_rows > 0) {
+                                        while($data2 = $qry2->fetch_assoc()){            
+                                            foreach($data2 as $key => $val){
+                                                $reply.=$key."\t: ".$val.PHP_EOL;
+                                            }
+                                            if($num_rows>1) $reply.=PHP_EOL;
+                                        }
+                                    } else {
+                                        $reply = "Data tidak ditemukan";
+                                    }
                             }
                         }
                     } else { // keyword's not found
