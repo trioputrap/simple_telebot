@@ -152,6 +152,4 @@
 
         //execution time of the script
         echo '10 Qry Execution Time: '.$execution_time." sec\n";
-        $sec+=$execution_time;
-
     }

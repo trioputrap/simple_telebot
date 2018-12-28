@@ -1,7 +1,6 @@
 <?php
     include "config.php";
     include "ExcelFileHelper.php";
-    
     // send reply
     while(true){
         $time_start = microtime(true); 
@@ -38,27 +37,27 @@
                     switch($data2->file_type_id){
                         case 1:
                             $url = $helper->exportToPdf($rows);
-                            $ext = ".pdf";
+                            $ext = "pdf";
                             break;
                         case 2:
                             $url = $helper->create($rows);
-                            $ext = ".xlsx";
+                            $ext = "xlsx";
                             break;
                     }
 
 
                     $document = new \CURLFile(realpath($url));
-                    $document->setPostFilename($data2->filename.$ext);
+                    $document->setPostFilename($data2->filename.".".$ext);
                     $fields = [
-                        'caption' => 'File',
                         'chat_id' => $data['chat_id'],
                         'document' => $document
                     ];
                     $helper->send(API_URL."sendDocument", $fields);
 
                     echo "File was sent to ".$data['chat_id']."\n";
+                    $helper->removeFile($ext);
                 } else {
-                    $sendto =API_URL."sendmessage?chat_id=".$data['chat_id']."&text=".$data['message'];
+                    $sendto =API_URL."sendmessage?chat_id=".$data['chat_id']."&text=".$data['message']."&parse_mode=html";
                     file_get_contents($sendto);
                     echo "Message was sent to ".$data['chat_id']."\n";
                 }
@@ -67,6 +66,7 @@
             }
         } else {
             echo "No new message to sent..\n";
+            sleep(1);
         }
         
         $time_end = microtime(true);
