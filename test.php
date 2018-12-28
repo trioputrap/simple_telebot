@@ -1,46 +1,14 @@
 <?php
-    include "config.php";
-    require 'ExcelFileHelper.php';
-    define('BOT_TOKEN', '761669654:AAEflIkOxaOTeRlaUZdSnmXqzYdEI-NTSfA');
-    define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
+   include "config.php";
 
-    $sql = "SELECT * FROM mahasiswa";
-    $qry = $conn->query($sql);
-    $rows = array();
-    while($data = $qry->fetch_assoc()){
-        $rows[]=$data;
-    }
-
-    $helper = new ExcelFileHelper();
-
-    $helper->create($rows);
-    
-    $realpath = realpath('download/'.$helper->getFilename().".xlsx");
-    echo $realpath;
-
-    $fields = [
-        'caption' => 'File',
-        'chat_id' => 400784474,
-        'document' => new \CURLFile($realpath) 
-    ];
-    //echo $helper->send(API_URL."sendDocument", $fields);
-
-    $url = API_URL."sendDocument";
-    echo $url;
-
-    $ch = curl_init();
-    
-            //set the url, number of POST vars, POST data
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
-            curl_setopt($ch, CURLOPT_SAFE_UPLOAD, true);
-            curl_setopt($ch,CURLOPT_URL, $url);
-            curl_setopt($ch,CURLOPT_POST, count($fields));
-            curl_setopt($ch,CURLOPT_POSTFIELDS, $fields);
-            
-            //So that curl_exec returns the contents of the cURL; rather than echoing it
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
-            
-            //execute post
-            $result = curl_exec($ch);
-            echo $result;
-    
+   if ($conn->connect_error){
+       $bussy_msg = "Please wait, will reply in a few moments";
+       $sendto =API_URL."sendmessage?chat_id=".$chatID."&text=".$bussy_msg;
+       
+       while ($conn->connect_error) {
+               echo("Connection failed: " . $conn->connect_error);
+               echo("Retrying in 10 secs .. .");
+               sleep(10);
+               $conn = new mysqli($host, $user, $pass, $db);
+       }
+   }

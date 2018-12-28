@@ -69,7 +69,6 @@
                             $oft_id = $data3->id;
                         } else {
                             $sql2 = $data2->sql;
-
                             foreach($messages as $key => $val) {
                                 if($key==0) continue;
                                 $sql2 = substr_replace($sql2, $val, strpos($sql2, "?"), 1);
@@ -77,7 +76,7 @@
 
                             $qry2 = $conn->query($sql2);
                             switch($data2->sql_type){
-                                case "input":
+                                case "insert":
                                     if($qry2){
                                         $reply = "Insert berhasil dilakukan";
                                     } else {
